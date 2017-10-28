@@ -1,6 +1,5 @@
 'use strict'
 
-
 /* eslint-env mocha */
 const commitInfo = require('.')
 
