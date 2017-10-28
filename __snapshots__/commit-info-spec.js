@@ -15,3 +15,15 @@ exports['commit-info returns empty strings for missing info 1'] = {
   "sha": "abc123",
   "remote": ""
 }
+
+exports['commit-info has certain api 1'] = [
+  "commitInfo",
+  "getBranch",
+  "getMessage",
+  "getEmail",
+  "getAuthor",
+  "getSha",
+  "getRemoteOrigin",
+  "getSubject",
+  "getBody"
+]

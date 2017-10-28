@@ -5,3 +5,8 @@ exports['git-api getting commit info works 1'] = {
   "sha": "abc123",
   "remote": "git@github.com/repo"
 }
+
+exports['git-api subject and body gets subject and body 1'] = {
+  "subject": "commit does this",
+  "body": "more details"
+}

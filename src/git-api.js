@@ -5,9 +5,12 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 
 // common git commands for getting basic info
+// https://git-scm.com/docs/git-show
 const gitCommands = {
   branch: 'git rev-parse --abbrev-ref HEAD',
   message: 'git show -s --pretty=%B',
+  subject: 'git show -s --pretty=%s',
+  body: 'git show -s --pretty=%b',
   email: 'git show -s --pretty=%ae',
   author: 'git show -s --pretty=%an',
   sha: 'git show -s --pretty=%H',
@@ -53,6 +56,10 @@ function getGitBranch (pathToRepo) {
 
 const getMessage = runGitCommand.bind(null, gitCommands.message)
 
+const getSubject = runGitCommand.bind(null, gitCommands.subject)
+
+const getBody = runGitCommand.bind(null, gitCommands.body)
+
 const getEmail = runGitCommand.bind(null, gitCommands.email)
 
 const getAuthor = runGitCommand.bind(null, gitCommands.author)
@@ -64,6 +71,8 @@ const getRemoteOrigin = runGitCommand.bind(null, gitCommands.remoteOriginUrl)
 module.exports = {
   runGitCommand,
   getGitBranch,
+  getSubject,
+  getBody,
   getMessage,
   getEmail,
   getAuthor,

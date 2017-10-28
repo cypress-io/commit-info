@@ -2,6 +2,8 @@
 
 const debug = require('debug')('commit-info')
 const {
+  getSubject,
+  getBody,
   getMessage,
   getEmail,
   getAuthor,
@@ -33,5 +35,7 @@ module.exports = {
   getEmail,
   getAuthor,
   getSha,
-  getRemoteOrigin
+  getRemoteOrigin,
+  getSubject,
+  getBody
 }

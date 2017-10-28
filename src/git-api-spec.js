@@ -10,6 +10,19 @@ const snapshot = require('snap-shot-it')
 describe('git-api', () => {
   const { gitCommands } = require('./git-api')
 
+  describe('subject and body', () => {
+    const { getSubject, getBody } = require('./git-api')
+
+    it('gets subject and body', () => {
+      stubSpawnShellOnce(gitCommands.subject, 0, 'commit does this', '')
+      stubSpawnShellOnce(gitCommands.body, 0, 'more details', '')
+      return Promise.props({
+        subject: getSubject(),
+        body: getBody()
+      }).then(snapshot)
+    })
+  })
+
   describe('getting commit info', () => {
     const {
       getMessage,

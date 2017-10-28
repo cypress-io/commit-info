@@ -19,6 +19,11 @@ describe('commit-info', () => {
     process.env = env
   })
 
+  it('has certain api', () => {
+    const api = require('.')
+    snapshot(Object.keys(api))
+  })
+
   it('returns information', () => {
     stubSpawnShellOnce(gitCommands.branch, 0, 'test-branch', '')
     stubSpawnShellOnce(gitCommands.message, 0, 'important commit', '')
