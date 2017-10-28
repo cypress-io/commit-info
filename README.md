@@ -1,4 +1,4 @@
-# commit-info
+# @cypress/commit-info
 
 > Collects Git commit info from CI or from CLI
 
@@ -13,14 +13,30 @@
 Requires [Node](https://nodejs.org/en/) version 6 or above.
 
 ```sh
-npm install --save commit-info
+npm install --save @cypress/commit-info
 ```
 
 ## Use
 
-### Small print
+```js
+const {commitInfo} = require('@cypress/commit-info')
+// default folder is current working directory
+commitInfo(folder)
+    .then(info => {
+        // info object will have properties
+        // sha
+        // branch
+        // email
+        // author
+        // remote
+        // subject
+        // body
+    })
+```
 
-Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
+Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
+
+### Small print
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
 
@@ -29,7 +45,7 @@ Support: if you find any problems with this module, email / tweet /
 
 ## MIT License
 
-Copyright (c) 2017 Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt;
+Copyright (c) 2017 Cypress.io
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

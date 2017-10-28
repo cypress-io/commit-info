@@ -1,5 +1,5 @@
 {
-  "name": "commit-info",
+  "name": "@cypress/commit-info",
   "description": "Collects Git commit info from CI or from CLI",
   "version": "1.0.0",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
@@ -40,6 +40,7 @@
   ],
   "license": "MIT",
   "main": "src/",
+  "private": false,
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
