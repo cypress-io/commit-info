@@ -3,10 +3,43 @@
 const la = require('lazy-ass')
 const R = require('ramda')
 const { stubSpawnShellOnce } = require('stub-spawn-once')
+const Promise = require('bluebird')
+const snapshot = require('snap-shot-it')
 
 /* eslint-env mocha */
-describe('utils', () => {
+describe('git-api', () => {
   const { gitCommands } = require('./git-api')
+
+  describe('getting commit info', () => {
+    const {
+      getMessage,
+      getEmail,
+      getAuthor,
+      getSha,
+      getRemoteOrigin
+    } = require('./git-api')
+
+    it('works', () => {
+      stubSpawnShellOnce(gitCommands.message, 0, 'important commit', '')
+      stubSpawnShellOnce(gitCommands.email, 0, 'me@foo.com', '')
+      stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
+      stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
+      stubSpawnShellOnce(
+        gitCommands.remoteOriginUrl,
+        0,
+        'git@github.com/repo',
+        ''
+      )
+
+      return Promise.props({
+        message: getMessage(),
+        email: getEmail(),
+        author: getAuthor(),
+        sha: getSha(),
+        remote: getRemoteOrigin()
+      }).then(snapshot)
+    })
+  })
 
   describe('getBranch', () => {
     const { getBranch } = require('./utils')
@@ -64,31 +97,6 @@ describe('utils', () => {
           la(branch === '', 'wrong HEAD branch from git', branch)
         )
       })
-    })
-  })
-
-  describe('firstFoundValue', () => {
-    const { firstFoundValue } = require('./utils')
-
-    const env = {
-      a: 1,
-      b: 2,
-      c: 3
-    }
-
-    it('finds first value', () => {
-      const found = firstFoundValue(['a', 'b'], env)
-      la(found === 1, found)
-    })
-
-    it('finds second value', () => {
-      const found = firstFoundValue(['z', 'a', 'b'], env)
-      la(found === 1, found)
-    })
-
-    it('finds nothing', () => {
-      const found = firstFoundValue(['z', 'x'], env)
-      la(found === null, found)
     })
   })
 })

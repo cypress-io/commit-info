@@ -2,13 +2,13 @@
 
 const debug = require('debug')('commit-info')
 const {
-  getBranch,
   getMessage,
   getEmail,
   getAuthor,
   getSha,
   getRemoteOrigin
-} = require('./utils')
+} = require('./git-api')
+const { getBranch } = require('./utils')
 
 const Promise = require('bluebird')
 

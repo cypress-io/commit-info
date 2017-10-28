@@ -4,7 +4,7 @@
 const { commitInfo } = require('.')
 const { stubSpawnShellOnce } = require('stub-spawn-once')
 const snapshot = require('snap-shot-it')
-const { gitCommands } = require('./utils')
+const { gitCommands } = require('./git-api')
 const la = require('lazy-ass')
 const is = require('check-more-types')
 
