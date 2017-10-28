@@ -3,9 +3,44 @@
 const la = require('lazy-ass')
 const R = require('ramda')
 const { stubSpawnShellOnce } = require('stub-spawn-once')
+const Promise = require('bluebird')
+const snapshot = require('snap-shot-it')
 
 /* eslint-env mocha */
 describe('utils', () => {
+  const { gitCommands } = require('./utils')
+
+  describe('getting commit info', () => {
+    const {
+      getMessage,
+      getEmail,
+      getAuthor,
+      getSha,
+      getRemoteOrigin
+    } = require('./utils')
+
+    it('works', () => {
+      stubSpawnShellOnce(gitCommands.message, 0, 'important commit', '')
+      stubSpawnShellOnce(gitCommands.email, 0, 'me@foo.com', '')
+      stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
+      stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
+      stubSpawnShellOnce(
+        gitCommands.remoteOriginUrl,
+        0,
+        'git@github.com/repo',
+        ''
+      )
+
+      return Promise.props({
+        message: getMessage(),
+        email: getEmail(),
+        author: getAuthor(),
+        sha: getSha(),
+        remote: getRemoteOrigin()
+      }).then(snapshot)
+    })
+  })
+
   describe('getBranch', () => {
     const { getBranch } = require('./utils')
 
@@ -43,24 +78,21 @@ describe('utils', () => {
       })
 
       it('uses git to determine branch', () => {
-        const cmd = 'git rev-parse --abbrev-ref HEAD'
-        stubSpawnShellOnce(cmd, 0, 'mock-test-branch', '')
+        stubSpawnShellOnce(gitCommands.branch, 0, 'mock-test-branch', '')
         return getBranch().then(branch =>
           la(branch === 'mock-test-branch', 'wrong branch from git', branch)
         )
       })
 
       it('returns empty string on failure', () => {
-        const cmd = 'git rev-parse --abbrev-ref HEAD'
-        stubSpawnShellOnce(cmd, 1, '', 'nope')
+        stubSpawnShellOnce(gitCommands.branch, 1, '', 'nope')
         return getBranch().then(branch =>
           la(branch === '', 'wrong empty branch from git', branch)
         )
       })
 
       it('returns empty string on HEAD', () => {
-        const cmd = 'git rev-parse --abbrev-ref HEAD'
-        stubSpawnShellOnce(cmd, 0, 'HEAD', '')
+        stubSpawnShellOnce(gitCommands.branch, 0, 'HEAD', '')
         return getBranch().then(branch =>
           la(branch === '', 'wrong HEAD branch from git', branch)
         )

@@ -24,17 +24,21 @@ const {commitInfo} = require('@cypress/commit-info')
 commitInfo(folder)
     .then(info => {
         // info object will have properties
-        // sha
         // branch
+        // message
         // email
         // author
+        // sha
         // remote
-        // subject
-        // body
     })
 ```
 
-Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
+Notes:
+
+- Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
+- Tries to read branch from CI variables first, otherwise uses Git command.
+- If a command fails, returns empty string for each property
+- If you need to debug, run with `DEBUG=commit-info` environment variable.
 
 ### Small print
 

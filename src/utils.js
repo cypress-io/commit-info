@@ -5,10 +5,21 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const Promise = require('bluebird')
 
+// common git commands for getting basic info
+const gitCommands = {
+  branch: 'git rev-parse --abbrev-ref HEAD',
+  message: 'git show -s --pretty=%B',
+  email: 'git show -s --pretty=%ae',
+  author: 'git show -s --pretty=%an',
+  sha: 'git show -s --pretty=%H',
+  remoteOriginUrl: 'git config --get remote.origin.url'
+}
+
 const prop = name => object => object[name]
 const emptyString = () => ''
 
 const runGitCommand = (pathToRepo, gitCommand) => {
+  pathToRepo = pathToRepo || process.cwd()
   la(is.unemptyString(pathToRepo), 'missing repo path', pathToRepo)
   la(is.unemptyString(gitCommand), 'missing git command', gitCommand)
   la(gitCommand.startsWith('git'), 'invalid git command', gitCommand)
@@ -35,7 +46,7 @@ const runGitCommand = (pathToRepo, gitCommand) => {
 const checkIfDetached = branch => (branch === 'HEAD' ? '' : branch)
 
 function getGitBranch (pathToRepo) {
-  return runGitCommand(pathToRepo, 'git rev-parse --abbrev-ref HEAD')
+  return runGitCommand(pathToRepo, gitCommands.branch)
     .then(checkIfDetached)
     .catch(emptyString)
 }
@@ -47,6 +58,8 @@ function firstFoundValue (keys, object = process.env) {
   return found ? object[found] : null
 }
 
+// first try finding branch from CI environment variables
+// if fails, use "git" command
 function getBranch (pathToRepo) {
   pathToRepo = pathToRepo || process.cwd()
   const ciNames = [
@@ -62,4 +75,25 @@ function getBranch (pathToRepo) {
   return getGitBranch(pathToRepo)
 }
 
-module.exports = { runGitCommand, firstFoundValue, getBranch }
+const getMessage = pathToRepo => runGitCommand(pathToRepo, gitCommands.message)
+
+const getEmail = pathToRepo => runGitCommand(pathToRepo, gitCommands.email)
+
+const getAuthor = pathToRepo => runGitCommand(pathToRepo, gitCommands.author)
+
+const getSha = pathToRepo => runGitCommand(pathToRepo, gitCommands.sha)
+
+const getRemoteOrigin = pathToRepo =>
+  runGitCommand(pathToRepo, gitCommands.remoteOriginUrl)
+
+module.exports = {
+  runGitCommand,
+  firstFoundValue,
+  getBranch,
+  getMessage,
+  getEmail,
+  getAuthor,
+  getSha,
+  getRemoteOrigin,
+  gitCommands
+}

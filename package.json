@@ -61,7 +61,7 @@
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
   "release": {
     "analyzeCommits": "simple-commit-message",
@@ -86,10 +86,12 @@
     "ramda": "0.25.0",
     "semantic-release": "8.2.0",
     "simple-commit-message": "3.3.2",
+    "snap-shot-it": "4.0.1",
     "standard": "10.0.3",
     "stub-spawn-once": "2.3.0"
   },
   "dependencies": {
+    "bluebird": "3.5.1",
     "chdir-promise": "0.6.2",
     "check-more-types": "2.24.0",
     "debug": "3.1.0",
