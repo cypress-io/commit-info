@@ -5,6 +5,8 @@ const { commitInfo } = require('.')
 const { stubSpawnShellOnce } = require('stub-spawn-once')
 const snapshot = require('snap-shot-it')
 const { gitCommands } = require('./utils')
+const la = require('lazy-ass')
+const is = require('check-more-types')
 
 describe('commit-info', () => {
   const env = process.env
@@ -40,5 +42,10 @@ describe('commit-info', () => {
     stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
     stubSpawnShellOnce(gitCommands.remoteOriginUrl, 1, '', 'no remote origin')
     return commitInfo().then(snapshot)
+  })
+
+  it('has getRemoteOrigin method', () => {
+    const { getRemoteOrigin } = require('.')
+    la(is.fn(getRemoteOrigin))
   })
 })

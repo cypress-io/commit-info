@@ -40,6 +40,19 @@ Notes:
 - If a command fails, returns empty string for each property
 - If you need to debug, run with `DEBUG=commit-info` environment variable.
 
+## Individual methods
+
+In addition to `commitInfo` this module also exposes individual promise-returning
+methods `getBranch`, `getMessage`, `getEmail`, `getAuthor`, `getSha`, `getRemoteOrigin`.
+
+For example
+
+```js
+const {getAuthor} = require('@cypress/commit-info')
+getAuthor('path/to/repo')
+    .then(name => ...)
+```
+
 ### Small print
 
 License: MIT - do anything with the code, but don't blame me if it does not work.

@@ -26,4 +26,12 @@ function commitInfo (folder) {
   })
 }
 
-module.exports = { commitInfo }
+module.exports = {
+  commitInfo,
+  getBranch,
+  getMessage,
+  getEmail,
+  getAuthor,
+  getSha,
+  getRemoteOrigin
+}
