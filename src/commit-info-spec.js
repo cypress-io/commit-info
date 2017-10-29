@@ -8,6 +8,22 @@ const { gitCommands } = require('./git-api')
 const la = require('lazy-ass')
 const is = require('check-more-types')
 
+describe('getBranch', () => {
+  const { getBranch } = require('.')
+
+  it('is a function', () => {
+    la(is.fn(getBranch))
+  })
+
+  it('returns git branch', () => {
+    return getBranch().then(branch => {
+      // this will only fail if detached commit (HEAD)
+      // in which case it returns an empty string
+      la(is.unemptyString(branch), 'missing branch', branch)
+    })
+  })
+})
+
 describe('commit-info', () => {
   const env = process.env
 

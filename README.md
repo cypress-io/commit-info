@@ -22,15 +22,15 @@ npm install --save @cypress/commit-info
 const {commitInfo} = require('@cypress/commit-info')
 // default folder is current working directory
 commitInfo(folder)
-    .then(info => {
-        // info object will have properties
-        // branch
-        // message
-        // email
-        // author
-        // sha
-        // remote
-    })
+  .then(info => {
+    // info object will have properties
+    // branch
+    // message
+    // email
+    // author
+    // sha
+    // remote
+  })
 ```
 
 Notes:
@@ -50,8 +50,21 @@ For example
 ```js
 const {getAuthor} = require('@cypress/commit-info')
 getAuthor('path/to/repo')
-    .then(name => ...)
+  .then(name => ...)
 ```
+
+### getBranch
+
+Resolves with the current git branch name. 
+
+```js
+const {getBranch} = require('@cypress/commit-info')
+getBranch()
+  .then(branch => ...)
+```
+
+- First tries to get the branch from CI variables, otherwise runs a `git ...` command
+- If this is detached commit (reporting `HEAD`), returns an empty string
 
 ### Small print
 
