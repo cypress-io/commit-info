@@ -8,7 +8,6 @@ const { stubSpawnShellOnce } = require('stub-spawn-once')
 const Promise = require('bluebird')
 const snapshot = require('snap-shot-it')
 const { join } = require('path')
-const isCI = require('is-ci')
 
 /* eslint-env mocha */
 describe('git-api', () => {
@@ -34,34 +33,38 @@ describe('git-api', () => {
     // because the branch command fails with an error
     //  fatal: Not a git repository: '.git'
     // thus we usually skip it locally and run on CI
-    if (isCI) {
-      it.only('finds branch in given repo folder', () => {
-        la(
-          is.unemptyString(currentBranch),
-          'missing branch in current folder',
-          currentBranch
-        )
+    // on CI the branch is also usually "HEAD" but we want actual
+    // branch there. So it really makes sense to run this
+    // test locally, but not when committing
+    it.only('finds branch in given repo folder', () => {
+      if (is.emptyString(currentBranch)) {
+        return
+      }
+      console.log('current branch "%s"', currentBranch)
 
-        const outsideFolder = join(__dirname, '..', '..')
-        return chdir
-          .to(outsideFolder)
-          .then(() => getGitBranch(__dirname))
-          .finally(chdir.back)
-          .then(branch => {
-            la(
-              is.unemptyString(branch),
-              'missing branch with given path',
-              branch
-            )
-            la(
-              branch === currentBranch,
-              'two branch values should be the same',
-              branch,
-              currentBranch
-            )
-          })
-      })
-    }
+      la(
+        is.unemptyString(currentBranch),
+        'missing branch in current folder',
+        currentBranch
+      )
+
+      const outsideFolder = join(__dirname, '..', '..')
+      // assume repo folder is current working directory!
+      const repoFolder = process.cwd()
+      return chdir
+        .to(outsideFolder)
+        .then(() => getGitBranch(repoFolder))
+        .finally(chdir.back)
+        .then(branch => {
+          la(is.unemptyString(branch), 'missing branch with given path', branch)
+          la(
+            branch === currentBranch,
+            'two branch values should be the same',
+            branch,
+            currentBranch
+          )
+        })
+    })
   })
 
   describe('subject and body', () => {
