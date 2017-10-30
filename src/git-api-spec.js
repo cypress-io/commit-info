@@ -22,6 +22,7 @@ describe('git-api', () => {
     before(() => {
       return getGitBranch().then(x => {
         currentBranch = x
+        console.log('current git branch is', x)
       })
     })
 
@@ -34,8 +35,12 @@ describe('git-api', () => {
     //  fatal: Not a git repository: '.git'
     // thus we usually skip it locally and run on CI
     if (isCI) {
-      it('finds branch in given repo folder', () => {
-        la(is.unemptyString(currentBranch), 'missing branch in current folder')
+      it.only('finds branch in given repo folder', () => {
+        la(
+          is.unemptyString(currentBranch),
+          'missing branch in current folder',
+          currentBranch
+        )
 
         const outsideFolder = join(__dirname, '..', '..')
         return chdir
