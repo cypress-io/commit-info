@@ -1,8 +1,8 @@
-const chdir = require('chdir-promise')
 const execa = require('execa')
 const debug = require('debug')('commit-info')
 const la = require('lazy-ass')
 const is = require('check-more-types')
+const Promise = require('bluebird')
 
 // common git commands for getting basic info
 // https://git-scm.com/docs/git-show
@@ -20,6 +20,11 @@ const gitCommands = {
 const prop = name => object => object[name]
 const emptyString = () => ''
 
+const debugError = (gitCommand, folder, e) => {
+  debug('got an error running command "%s" in folder "%s"', gitCommand, folder)
+  debug(e)
+}
+
 const runGitCommand = (gitCommand, pathToRepo) => {
   la(is.unemptyString(gitCommand), 'missing git command', gitCommand)
   la(gitCommand.startsWith('git'), 'invalid git command', gitCommand)
@@ -27,14 +32,17 @@ const runGitCommand = (gitCommand, pathToRepo) => {
   pathToRepo = pathToRepo || process.cwd()
   la(is.unemptyString(pathToRepo), 'missing repo path', pathToRepo)
 
-  const runGit = () => execa.shell(gitCommand).then(prop('stdout'))
-
   debug('running git command: %s', gitCommand)
-  return chdir
-    .to(pathToRepo)
-    .then(runGit)
-    .tap(chdir.back)
-    .catch(emptyString)
+  debug('in folder %s', pathToRepo)
+
+  return Promise.resolve()
+    .then(() => execa.shell(gitCommand, { cwd: pathToRepo }))
+    .then(prop('stdout'))
+    .tap(stdout => debug('git stdout:', stdout))
+    .catch(e => {
+      debugError(gitCommand, pathToRepo, e)
+      return emptyString()
+    })
 }
 
 /*

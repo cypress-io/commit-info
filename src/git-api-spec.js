@@ -1,14 +1,63 @@
 'use strict'
 
 const la = require('lazy-ass')
+const is = require('check-more-types')
+const chdir = require('chdir-promise')
 const R = require('ramda')
 const { stubSpawnShellOnce } = require('stub-spawn-once')
 const Promise = require('bluebird')
 const snapshot = require('snap-shot-it')
+const { join } = require('path')
+const isCI = require('is-ci')
 
 /* eslint-env mocha */
 describe('git-api', () => {
   const { gitCommands } = require('./git-api')
+
+  context('getGitBranch', () => {
+    const { getGitBranch } = require('./git-api')
+
+    let currentBranch
+
+    before(() => {
+      return getGitBranch().then(x => {
+        currentBranch = x
+      })
+    })
+
+    it('is a function', () => {
+      la(is.fn(getGitBranch))
+    })
+
+    // we cannot run this test during pre-commit hook
+    // because the branch command fails with an error
+    //  fatal: Not a git repository: '.git'
+    // thus we usually skip it locally and run on CI
+    if (isCI) {
+      it('finds branch in given repo folder', () => {
+        la(is.unemptyString(currentBranch), 'missing branch in current folder')
+
+        const outsideFolder = join(__dirname, '..', '..')
+        return chdir
+          .to(outsideFolder)
+          .then(() => getGitBranch(__dirname))
+          .finally(chdir.back)
+          .then(branch => {
+            la(
+              is.unemptyString(branch),
+              'missing branch with given path',
+              branch
+            )
+            la(
+              branch === currentBranch,
+              'two branch values should be the same',
+              branch,
+              currentBranch
+            )
+          })
+      })
+    }
+  })
 
   describe('subject and body', () => {
     const { getSubject, getBody } = require('./git-api')

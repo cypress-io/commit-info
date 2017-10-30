@@ -7,15 +7,6 @@ exports['commit-info returns information 1'] = {
   "remote": "git@github.com/repo"
 }
 
-exports['commit-info returns empty strings for missing info 1'] = {
-  "branch": "test-branch",
-  "message": "",
-  "email": "me@foo.com",
-  "author": "",
-  "sha": "abc123",
-  "remote": ""
-}
-
 exports['commit-info has certain api 1'] = [
   "commitInfo",
   "getBranch",
@@ -27,3 +18,12 @@ exports['commit-info has certain api 1'] = [
   "getSubject",
   "getBody"
 ]
+
+exports['commit-info returns empty strings for missing info 1'] = {
+  "branch": "test-branch",
+  "message": "",
+  "email": "me@foo.com",
+  "author": "",
+  "sha": "abc123",
+  "remote": ""
+}
