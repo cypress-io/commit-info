@@ -36,7 +36,7 @@ describe('git-api', () => {
     // on CI the branch is also usually "HEAD" but we want actual
     // branch there. So it really makes sense to run this
     // test locally, but not when committing
-    it.only('finds branch in given repo folder', () => {
+    it('finds branch in given repo folder', () => {
       if (is.emptyString(currentBranch)) {
         return
       }
