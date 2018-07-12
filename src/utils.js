@@ -17,7 +17,8 @@ function getBranch (pathToRepo) {
     'CIRCLE_BRANCH',
     'TRAVIS_BRANCH',
     'BUILDKITE_BRANCH',
-    'CI_BRANCH'
+    'CI_BRANCH',
+    'GIT_BRANCH' // on Jenkins
   ]
   const ciBranch = firstFoundValue(ciNames, process.env)
   if (ciBranch) {
