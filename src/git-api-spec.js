@@ -36,7 +36,7 @@ describe('git-api', () => {
     // branch there. So it really makes sense to run this
     // test locally, but not when committing
     it('finds branch in given repo folder', () => {
-      if (is.emptyString(currentBranch)) {
+      if (currentBranch === null) {
         return
       }
       console.log('current branch "%s"', currentBranch)
