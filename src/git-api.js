@@ -18,7 +18,8 @@ const gitCommands = {
 }
 
 const prop = name => object => object[name]
-const emptyString = () => ''
+const returnNull = () => null
+const returnNullIfEmpty = value => value || null
 
 const debugError = (gitCommand, folder, e) => {
   debug('got an error running command "%s" in folder "%s"', gitCommand, folder)
@@ -39,27 +40,28 @@ const runGitCommand = (gitCommand, pathToRepo) => {
     .then(() => execa.shell(gitCommand, { cwd: pathToRepo }))
     .then(prop('stdout'))
     .tap(stdout => debug('git stdout:', stdout))
+    .then(returnNullIfEmpty)
     .catch(e => {
       debugError(gitCommand, pathToRepo, e)
-      return emptyString()
+      return returnNull()
     })
 }
 
 /*
   "gift" module returns "" for detached checkouts
   and our current command returns "HEAD"
-  so we must imitate gift's behavior
+  and we changed the behavior to return null
 
   example:
   git checkout <commit sha>
   get git branch returns "HEAD"
 */
-const checkIfDetached = branch => (branch === 'HEAD' ? '' : branch)
+const checkIfDetached = branch => (branch === 'HEAD' ? null : branch)
 
 function getGitBranch (pathToRepo) {
   return runGitCommand(gitCommands.branch, pathToRepo)
     .then(checkIfDetached)
-    .catch(emptyString)
+    .catch(returnNull)
 }
 
 const getMessage = runGitCommand.bind(null, gitCommands.message)

@@ -21,9 +21,9 @@ exports['commit-info has certain api 1'] = [
 
 exports['commit-info returns empty strings for missing info 1'] = {
   "branch": "test-branch",
-  "message": "",
+  "message": null,
   "email": "me@foo.com",
-  "author": "",
+  "author": null,
   "sha": "abc123",
-  "remote": ""
+  "remote": null
 }

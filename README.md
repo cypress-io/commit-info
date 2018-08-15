@@ -1,6 +1,6 @@
 # @cypress/commit-info
 
-> Collects Git commit info from CI or from CLI
+> Collects Git commit info from git CLI
 
 [![NPM][npm-icon] ][npm-url]
 
@@ -36,8 +36,8 @@ commitInfo(folder)
 Notes:
 
 - Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
-- Tries to read branch from CI variables first, otherwise uses Git command.
-- If a command fails, returns empty string for each property
+- Only uses Git commands, see [src/git-api.js](src/git-api.js)
+- If a command fails, returns null for each property
 - If you need to debug, run with `DEBUG=commit-info` environment variable.
 
 ## Individual methods
@@ -55,7 +55,7 @@ getAuthor('path/to/repo')
 
 ### getBranch
 
-Resolves with the current git branch name. 
+Resolves with the current git branch name or `null`.
 
 ```js
 const {getBranch} = require('@cypress/commit-info')
@@ -63,8 +63,7 @@ getBranch()
   .then(branch => ...)
 ```
 
-- First tries to get the branch from CI variables, otherwise runs a `git ...` command
-- If this is detached commit (reporting `HEAD`), returns an empty string
+- If this is detached commit (reporting `HEAD`), returns `null`
 
 ### Small print
 

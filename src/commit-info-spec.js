@@ -15,11 +15,36 @@ describe('getBranch', () => {
     la(is.fn(getBranch))
   })
 
-  it('returns git branch', () => {
+  it('returns null for empty output', () => {
+    stubSpawnShellOnce(gitCommands.branch, 0, '', '')
     return getBranch().then(branch => {
-      // this will only fail if detached commit (HEAD)
-      // in which case it returns an empty string
-      la(is.unemptyString(branch), 'missing branch', branch)
+      la(
+        branch === null,
+        'empty branch should be null, but it was',
+        typeof branch
+      )
+    })
+  })
+
+  it('returns null on git error', () => {
+    stubSpawnShellOnce(gitCommands.branch, 1, '', 'something wrong')
+    return getBranch().then(branch => {
+      la(
+        branch === null,
+        'empty branch should be null, but it was',
+        typeof branch
+      )
+    })
+  })
+
+  it('returns null on git HEAD', () => {
+    stubSpawnShellOnce(gitCommands.branch, 0, 'HEAD', '')
+    return getBranch().then(branch => {
+      la(
+        branch === null,
+        'empty branch should be null, but it was',
+        typeof branch
+      )
     })
   })
 })
