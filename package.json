@@ -94,7 +94,7 @@
   "dependencies": {
     "bluebird": "3.5.2",
     "check-more-types": "2.24.0",
-    "debug": "4.0.1",
+    "debug": "4.1.0",
     "execa": "1.0.0",
     "lazy-ass": "1.6.0"
   }
