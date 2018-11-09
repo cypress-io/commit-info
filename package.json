@@ -87,7 +87,7 @@
     "ramda": "0.25.0",
     "semantic-release": "8.2.3",
     "simple-commit-message": "3.3.2",
-    "snap-shot-it": "6.2.2",
+    "snap-shot-it": "6.2.3",
     "standard": "10.0.3",
     "stub-spawn-once": "2.3.0"
   },
