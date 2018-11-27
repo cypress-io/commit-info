@@ -85,7 +85,6 @@
     "nsp": "2.8.1",
     "pre-git": "3.17.1",
     "prettier-standard": "8.0.1",
-    "ramda": "0.26.0",
     "semantic-release": "8.2.3",
     "simple-commit-message": "3.3.2",
     "snap-shot-it": "6.2.5",
@@ -97,6 +96,7 @@
     "check-more-types": "2.24.0",
     "debug": "4.1.0",
     "execa": "1.0.0",
-    "lazy-ass": "1.6.0"
+    "lazy-ass": "1.6.0",
+    "ramda": "0.26.0"
   }
 }
