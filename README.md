@@ -58,7 +58,7 @@ remote: COMMIT_INFO_REMOTE
 ## Individual methods
 
 In addition to `commitInfo` this module also exposes individual promise-returning
-methods `getBranch`, `getMessage`, `getEmail`, `getAuthor`, `getSha`, `getRemoteOrigin`.
+methods `getBranch`, `getMessage`, `getEmail`, `getAuthor`, `getSha`, `getRemoteOrigin`. These methods do NOT use fallback environment variables.
 
 For example
 
