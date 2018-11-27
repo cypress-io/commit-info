@@ -7,6 +7,7 @@ const snapshot = require('snap-shot-it')
 const { gitCommands } = require('./git-api')
 const la = require('lazy-ass')
 const is = require('check-more-types')
+const mockedEnv = require('mocked-env')
 
 describe('getBranch', () => {
   const { getBranch } = require('.')
@@ -50,14 +51,14 @@ describe('getBranch', () => {
 })
 
 describe('commit-info', () => {
-  const env = process.env
+  let restoreEnvironment
 
   beforeEach(() => {
-    process.env = {}
+    restoreEnvironment = mockedEnv({}, { clear: true })
   })
 
   afterEach(() => {
-    process.env = env
+    restoreEnvironment()
   })
 
   it('has certain api', () => {
