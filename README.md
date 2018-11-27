@@ -36,6 +36,7 @@ commitInfo(folder)
 
 Notes:
 
+- Code assumes there is `.git` folder and uses Git commands to get each property, like `git show -s --pretty=%B`, see [src/git-api.js](src/git-api.js)
 - Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
 - Only uses Git commands, see [src/git-api.js](src/git-api.js)
 - If a command fails, returns null for each property
