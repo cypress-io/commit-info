@@ -11,8 +11,8 @@ const {
   getRemoteOrigin
 } = require('./git-api')
 const { getBranch, getCommitInfoFromEnvironment } = require('./utils')
-
 const Promise = require('bluebird')
+const { mergeWith, or } = require('ramda')
 
 function commitInfo (folder) {
   folder = folder || process.cwd()
@@ -29,7 +29,7 @@ function commitInfo (folder) {
     const envVariables = getCommitInfoFromEnvironment()
     debug('git commit: %o', info)
     debug('env commit: %o', envVariables)
-    return Object.assign({}, envVariables, info)
+    return mergeWith(or, envVariables, info)
   })
 }
 
