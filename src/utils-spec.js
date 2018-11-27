@@ -1,9 +1,19 @@
 'use strict'
 
 const la = require('lazy-ass')
+const is = require('check-more-types')
 
 /* eslint-env mocha */
 describe('utils', () => {
+  describe('getFields', () => {
+    const { getFields } = require('./utils')
+
+    it('returns list of fields', () => {
+      const fields = getFields()
+      la(is.strings(fields), fields)
+    })
+  })
+
   describe('firstFoundValue', () => {
     const { firstFoundValue } = require('./utils')
 
