@@ -10,7 +10,7 @@ const {
   getSha,
   getRemoteOrigin
 } = require('./git-api')
-const { getBranch } = require('./utils')
+const { getBranch, getCommitInfoFromEnvironment } = require('./utils')
 
 const Promise = require('bluebird')
 
@@ -25,6 +25,11 @@ function commitInfo (folder) {
     author: getAuthor(folder),
     sha: getSha(folder),
     remote: getRemoteOrigin(folder)
+  }).then(info => {
+    const envVariables = getCommitInfoFromEnvironment()
+    debug('git commit: %o', info)
+    debug('env commit: %o', envVariables)
+    return Object.assign({}, envVariables, info)
   })
 }
 
