@@ -112,8 +112,8 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-[npm-icon]: https://nodei.co/npm/commit-info.svg?downloads=true
-[npm-url]: https://npmjs.org/package/commit-info
+[npm-icon]: https://nodei.co/npm/@cypress/commit-info.svg?downloads=true
+[npm-url]: https://npmjs.org/package/@cypress/commit-info
 [ci-image]: https://travis-ci.org/cypress-io/commit-info.svg?branch=master
 [ci-url]: https://travis-ci.org/cypress-io/commit-info
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
