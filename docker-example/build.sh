@@ -1,8 +1,6 @@
 set e+x
 
-LOCAL_NAME=local/test
-
-docker build -t $LOCAL_NAME .
+docker build -t local/test .
 
 # run the example with source code and node_modules
 # mapped from the parent folder
