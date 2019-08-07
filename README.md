@@ -55,6 +55,19 @@ sha: COMMIT_INFO_SHA
 remote: COMMIT_INFO_REMOTE
 ```
 
+### For Docker containers
+
+When running your application inside a Docker container, you should set these environment variables using `-e` syntax.
+
+```shell
+$ docker run \
+  -e COMMIT_INFO_BRANCH=develop \
+  -e COMMIT_INFO_SHA=e5d9eb66474bc0b681da9240aa5a457fe17bc8f3 \
+  <container name>
+```
+
+See [docker-example](docker-example) for a full example.
+
 ## Individual methods
 
 In addition to `commitInfo` this module also exposes individual promise-returning
