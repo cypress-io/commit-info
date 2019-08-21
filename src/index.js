@@ -8,6 +8,7 @@ const {
   getEmail,
   getAuthor,
   getSha,
+  getTimestamp,
   getRemoteOrigin
 } = require('./git-api')
 const { getBranch, getCommitInfoFromEnvironment } = require('./utils')
@@ -24,6 +25,7 @@ function commitInfo (folder) {
     email: getEmail(folder),
     author: getAuthor(folder),
     sha: getSha(folder),
+    timestamp: getTimestamp(folder),
     remote: getRemoteOrigin(folder)
   }).then(info => {
     const envVariables = getCommitInfoFromEnvironment()
@@ -42,5 +44,6 @@ module.exports = {
   getSha,
   getRemoteOrigin,
   getSubject,
+  getTimestamp,
   getBody
 }

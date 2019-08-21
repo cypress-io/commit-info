@@ -85,7 +85,8 @@ describe('git-api', () => {
       getEmail,
       getAuthor,
       getSha,
-      getRemoteOrigin
+      getRemoteOrigin,
+      getTimestamp
     } = require('./git-api')
 
     it('works', () => {
@@ -93,6 +94,7 @@ describe('git-api', () => {
       stubSpawnShellOnce(gitCommands.email, 0, 'me@foo.com', '')
       stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
       stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
+      stubSpawnShellOnce(gitCommands.timestamp, 0, '123', '')
       stubSpawnShellOnce(
         gitCommands.remoteOriginUrl,
         0,
@@ -105,7 +107,8 @@ describe('git-api', () => {
         email: getEmail(),
         author: getAuthor(),
         sha: getSha(),
-        remote: getRemoteOrigin()
+        remote: getRemoteOrigin(),
+        timestamp: getTimestamp()
       }).then(snapshot)
     })
   })

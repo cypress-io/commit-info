@@ -14,6 +14,7 @@ const gitCommands = {
   email: 'git show -s --pretty=%ae',
   author: 'git show -s --pretty=%an',
   sha: 'git show -s --pretty=%H',
+  timestamp: 'git show -s --pretty=%ct',
   remoteOriginUrl: 'git config --get remote.origin.url'
 }
 
@@ -75,6 +76,8 @@ const getAuthor = runGitCommand.bind(null, gitCommands.author)
 
 const getSha = runGitCommand.bind(null, gitCommands.sha)
 
+const getTimestamp = runGitCommand.bind(null, gitCommands.timestamp)
+
 const getRemoteOrigin = runGitCommand.bind(null, gitCommands.remoteOriginUrl)
 
 module.exports = {
@@ -86,6 +89,7 @@ module.exports = {
   getEmail,
   getAuthor,
   getSha,
+  getTimestamp,
   getRemoteOrigin,
   gitCommands
 }
