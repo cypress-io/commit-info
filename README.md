@@ -30,6 +30,7 @@ commitInfo(folder)
     // email
     // author
     // sha
+    // timestamp (in seconds since epoch)
     // remote
   })
 ```
@@ -52,6 +53,7 @@ message: COMMIT_INFO_MESSAGE
 email: COMMIT_INFO_EMAIL
 author: COMMIT_INFO_AUTHOR
 sha: COMMIT_INFO_SHA
+timestamp: COMMIT_INFO_TIMESTAMP
 remote: COMMIT_INFO_REMOTE
 ```
 
@@ -71,7 +73,7 @@ See [docker-example](docker-example) for a full example.
 ## Individual methods
 
 In addition to `commitInfo` this module also exposes individual promise-returning
-methods `getBranch`, `getMessage`, `getEmail`, `getAuthor`, `getSha`, `getRemoteOrigin`. These methods do NOT use fallback environment variables.
+methods `getBranch`, `getMessage`, `getEmail`, `getAuthor`, `getSha`, `getTimestamp`, `getRemoteOrigin`. These methods do NOT use fallback environment variables.
 
 For example
 

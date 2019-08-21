@@ -73,6 +73,7 @@ describe('commit-info', () => {
       stubSpawnShellOnce(gitCommands.email, 0, 'me@foo.com', '')
       stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
       stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
+      stubSpawnShellOnce(gitCommands.timestamp, 0, '123', '')
       stubSpawnShellOnce(
         gitCommands.remoteOriginUrl,
         0,
@@ -89,6 +90,7 @@ describe('commit-info', () => {
       stubSpawnShellOnce(gitCommands.author, 1, '', 'missing author')
       stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
       stubSpawnShellOnce(gitCommands.remoteOriginUrl, 1, '', 'no remote origin')
+      stubSpawnShellOnce(gitCommands.timestamp, 0, '123', '')
       return commitInfo()
         .tap(info => {
           la(info.message === null, 'message should be null', info)
@@ -137,6 +139,7 @@ describe('commit-info', () => {
       stubSpawnShellOnce(gitCommands.email, 1, '', 'could not get Git email')
       stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
       stubSpawnShellOnce(gitCommands.sha, 0, 'abc123', '')
+      stubSpawnShellOnce(gitCommands.timestamp, 0, '123', '')
       stubSpawnShellOnce(
         gitCommands.remoteOriginUrl,
         0,

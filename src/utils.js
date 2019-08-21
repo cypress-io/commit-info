@@ -37,6 +37,7 @@ function getCommitInfoFromEnvironment (env = process.env) {
     email: getValue('COMMIT_INFO_EMAIL')(env),
     author: getValue('COMMIT_INFO_AUTHOR')(env),
     sha: getValue('COMMIT_INFO_SHA')(env),
+    timestamp: getValue('COMMIT_INFO_TIMESTAMP')(env),
     remote: getValue('COMMIT_INFO_REMOTE')(env)
   }
 }
@@ -45,7 +46,7 @@ function getCommitInfoFromEnvironment (env = process.env) {
  * Returns list of Git properties that this module searches for
  */
 function getFields () {
-  return ['branch', 'message', 'email', 'author', 'sha', 'remote']
+  return ['branch', 'message', 'email', 'author', 'sha', 'remote', 'timestamp']
 }
 
 module.exports = {
