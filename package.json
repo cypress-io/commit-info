@@ -84,7 +84,7 @@
     "prettier-standard": "8.0.1",
     "semantic-release": "8.2.3",
     "simple-commit-message": "3.3.2",
-    "snap-shot-it": "7.8.0",
+    "snap-shot-it": "7.9.3",
     "standard": "13.1.0",
     "stub-spawn-once": "2.3.0"
   },
