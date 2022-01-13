@@ -37,15 +37,15 @@ commitInfo(folder)
 
 Notes:
 
-- Code assumes there is `.git` folder and uses Git commands to get each property, like `git show -s --pretty=%B`, see [src/git-api.js](src/git-api.js). Note: there is fallback to environment variables.
+- Code assumes there is `.git` folder and uses Git commands to get each property, like `git show -s --pretty=%B`, see [src/git-api.js](src/git-api.js). Note: this can be overrided by environment variables.
 - Resolves with [Bluebird](https://github.com/petkaantonov/bluebird) promise.
 - Only uses Git commands, see [src/git-api.js](src/git-api.js)
 - If a command fails, returns `null` for each property
 - If you need to debug, run with `DEBUG=commit-info` environment variable.
 
-## Fallback environment variables
+## Override with environment variables
 
-If getting the commit information using `git` fails for some reason, you can provide the commit information by setting the environment variables. This module will look at the following environment variables as a fallback
+If getting the commit information using `git` fails for some reason, or you want to override them, you can provide the commit information by setting the environment variables. This module will look at the following environment variables as a fallback
 
 ```
 branch: COMMIT_INFO_BRANCH
