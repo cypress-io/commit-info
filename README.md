@@ -129,8 +129,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 [npm-icon]: https://nodei.co/npm/@cypress/commit-info.svg?downloads=true
 [npm-url]: https://npmjs.org/package/@cypress/commit-info
-[ci-image]: https://travis-ci.org/cypress-io/commit-info.svg?branch=master
-[ci-url]: https://travis-ci.org/cypress-io/commit-info
+[ci-image]: https://github.com/cypress-io/commit-info/actions/workflows/main.yml/badge.svg
+[ci-url]: https://github.com/cypress-io/commit-info/actions/workflows/main.yml
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
