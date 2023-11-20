@@ -2,7 +2,7 @@
   "name": "@cypress/commit-info",
   "description": "Collects Git commit info from CI or from CLI",
   "version": "0.0.0-development",
-  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "author": "Cypress <hello@cypress.io> (http://www.cypress.io/)",
   "bugs": "https://github.com/cypress-io/commit-info/issues",
   "config": {
     "pre-git": {
