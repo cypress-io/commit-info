@@ -70,7 +70,7 @@
     }
   },
   "devDependencies": {
-    "ban-sensitive-files": "1.9.2",
+    "ban-sensitive-files": "1.10.0",
     "chdir-promise": "0.6.2",
     "dependency-check": "4.1.0",
     "deps-ok": "1.4.1",
