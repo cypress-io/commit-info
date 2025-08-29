@@ -15,5 +15,11 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm test
-      # - if: github.ref == 'refs/heads/master'
-        # run: npm run semantic-release
+      - name: Release to npm registry
+        # only release from the master branch in parent repository, not in a fork
+        if: (github.ref == 'refs/heads/master') &&
+          (github.repository == 'cypress-io/commit-info')
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
