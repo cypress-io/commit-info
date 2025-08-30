@@ -19,7 +19,8 @@ jobs:
         # only release from the master branch in parent repository, not in a fork
         if: (github.ref == 'refs/heads/master') &&
           (github.repository == 'cypress-io/commit-info')
-        run: npx semantic-release
+        # TODO: remove --dry-run after testing and when a real release is needed
+        run: npx semantic-release --dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
