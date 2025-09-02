@@ -15,12 +15,12 @@ const gitCommands = {
   author: 'git show -s --pretty=%an',
   sha: 'git show -s --pretty=%H',
   timestamp: 'git show -s --pretty=%ct',
-  remoteOriginUrl: 'git config --get remote.origin.url'
+  remoteOriginUrl: 'git config --get remote.origin.url',
 }
 
-const prop = name => object => object[name]
+const prop = (name) => (object) => object[name]
 const returnNull = () => null
-const returnNullIfEmpty = value => value || null
+const returnNullIfEmpty = (value) => value || null
 
 const debugError = (gitCommand, folder, e) => {
   debug('got an error running command "%s" in folder "%s"', gitCommand, folder)
@@ -39,9 +39,9 @@ const runGitCommand = (gitCommand, pathToRepo) => {
 
   return Promise.try(() => execa.shell(gitCommand, { cwd: pathToRepo }))
     .then(prop('stdout'))
-    .tap(stdout => debug('git stdout:', stdout))
+    .tap((stdout) => debug('git stdout:', stdout))
     .then(returnNullIfEmpty)
-    .catch(e => {
+    .catch((e) => {
       debugError(gitCommand, pathToRepo, e)
       return returnNull()
     })
@@ -56,7 +56,7 @@ const runGitCommand = (gitCommand, pathToRepo) => {
   git checkout <commit sha>
   get git branch returns "HEAD"
 */
-const checkIfDetached = branch => (branch === 'HEAD' ? null : branch)
+const checkIfDetached = (branch) => (branch === 'HEAD' ? null : branch)
 
 function getGitBranch (pathToRepo) {
   return runGitCommand(gitCommands.branch, pathToRepo)
@@ -91,5 +91,5 @@ module.exports = {
   getSha,
   getTimestamp,
   getRemoteOrigin,
-  gitCommands
+  gitCommands,
 }

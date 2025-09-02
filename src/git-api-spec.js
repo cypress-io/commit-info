@@ -18,7 +18,7 @@ describe('git-api', () => {
     let currentBranch
 
     before(() => {
-      return getGitBranch().then(x => {
+      return getGitBranch().then((x) => {
         currentBranch = x
         console.log('current git branch is', x)
       })
@@ -44,7 +44,7 @@ describe('git-api', () => {
       la(
         is.unemptyString(currentBranch),
         'missing branch in current folder',
-        currentBranch
+        currentBranch,
       )
 
       const outsideFolder = join(__dirname, '..', '..')
@@ -54,13 +54,13 @@ describe('git-api', () => {
         .to(outsideFolder)
         .then(() => getGitBranch(repoFolder))
         .finally(chdir.back)
-        .then(branch => {
+        .then((branch) => {
           la(is.unemptyString(branch), 'missing branch with given path', branch)
           la(
             branch === currentBranch,
             'two branch values should be the same',
             branch,
-            currentBranch
+            currentBranch,
           )
         })
     })
@@ -74,7 +74,7 @@ describe('git-api', () => {
       stubSpawnShellOnce(gitCommands.body, 0, 'more details', '')
       return Promise.props({
         subject: getSubject(),
-        body: getBody()
+        body: getBody(),
       }).then(snapshot)
     })
   })
@@ -86,7 +86,7 @@ describe('git-api', () => {
       getAuthor,
       getSha,
       getRemoteOrigin,
-      getTimestamp
+      getTimestamp,
     } = require('./git-api')
 
     it('works', () => {
@@ -99,7 +99,7 @@ describe('git-api', () => {
         gitCommands.remoteOriginUrl,
         0,
         'git@github.com/repo',
-        ''
+        '',
       )
 
       return Promise.props({
@@ -108,7 +108,7 @@ describe('git-api', () => {
         author: getAuthor(),
         sha: getSha(),
         remote: getRemoteOrigin(),
-        timestamp: getTimestamp()
+        timestamp: getTimestamp(),
       }).then(snapshot)
     })
   })

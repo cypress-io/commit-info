@@ -18,33 +18,33 @@ describe('getBranch', () => {
 
   it('returns null for empty output', () => {
     stubSpawnShellOnce(gitCommands.branch, 0, '', '')
-    return getBranch().then(branch => {
+    return getBranch().then((branch) => {
       la(
         branch === null,
         'empty branch should be null, but it was',
-        typeof branch
+        typeof branch,
       )
     })
   })
 
   it('returns null on git error', () => {
     stubSpawnShellOnce(gitCommands.branch, 1, '', 'something wrong')
-    return getBranch().then(branch => {
+    return getBranch().then((branch) => {
       la(
         branch === null,
         'empty branch should be null, but it was',
-        typeof branch
+        typeof branch,
       )
     })
   })
 
   it('returns null on git HEAD', () => {
     stubSpawnShellOnce(gitCommands.branch, 0, 'HEAD', '')
-    return getBranch().then(branch => {
+    return getBranch().then((branch) => {
       la(
         branch === null,
         'empty branch should be null, but it was',
-        typeof branch
+        typeof branch,
       )
     })
   })
@@ -78,7 +78,7 @@ describe('commit-info', () => {
         gitCommands.remoteOriginUrl,
         0,
         'git@github.com/repo',
-        ''
+        '',
       )
       return commitInfo().then(snapshot)
     })
@@ -92,7 +92,7 @@ describe('commit-info', () => {
       stubSpawnShellOnce(gitCommands.remoteOriginUrl, 1, '', 'no remote origin')
       stubSpawnShellOnce(gitCommands.timestamp, 0, '123', '')
       return commitInfo()
-        .tap(info => {
+        .tap((info) => {
           la(info.message === null, 'message should be null', info)
           la(info.author === null, 'author should be null', info)
           la(info.remote === null, 'remoteOriginUrl should be null', info)
@@ -113,9 +113,9 @@ describe('commit-info', () => {
       restoreEnvironment = mockedEnv(
         {
           COMMIT_INFO_MESSAGE: 'some git message',
-          COMMIT_INFO_EMAIL: 'user@company.com'
+          COMMIT_INFO_EMAIL: 'user@company.com',
         },
-        { clear: true }
+        { clear: true },
       )
     })
 
@@ -134,7 +134,7 @@ describe('commit-info', () => {
         gitCommands.message,
         1,
         '',
-        'could not get Git message'
+        'could not get Git message',
       )
       stubSpawnShellOnce(gitCommands.email, 1, '', 'could not get Git email')
       stubSpawnShellOnce(gitCommands.author, 0, 'John Doe', '')
@@ -144,7 +144,7 @@ describe('commit-info', () => {
         gitCommands.remoteOriginUrl,
         0,
         'git@github.com/repo',
-        ''
+        '',
       )
       return commitInfo().then(snapshot)
     })

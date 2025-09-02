@@ -2,13 +2,13 @@ const { getGitBranch } = require('./git-api')
 const debug = require('debug')('commit-info')
 
 function firstFoundValue (keys, object = process.env) {
-  const found = keys.find(key => {
+  const found = keys.find((key) => {
     return key in object
   })
   return found ? object[found] : null
 }
 
-const getValue = name => o => {
+const getValue = (name) => (o) => {
   if (name in o) {
     return o[name]
   }
@@ -38,7 +38,7 @@ function getCommitInfoFromEnvironment (env = process.env) {
     author: getValue('COMMIT_INFO_AUTHOR')(env),
     sha: getValue('COMMIT_INFO_SHA')(env),
     timestamp: getValue('COMMIT_INFO_TIMESTAMP')(env),
-    remote: getValue('COMMIT_INFO_REMOTE')(env)
+    remote: getValue('COMMIT_INFO_REMOTE')(env),
   }
 }
 
@@ -53,5 +53,5 @@ module.exports = {
   firstFoundValue,
   getBranch,
   getCommitInfoFromEnvironment,
-  getFields
+  getFields,
 }
