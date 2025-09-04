@@ -9,7 +9,7 @@ const {
   getAuthor,
   getSha,
   getTimestamp,
-  getRemoteOrigin
+  getRemoteOrigin,
 } = require('./git-api')
 const { getBranch, getCommitInfoFromEnvironment } = require('./utils')
 const Promise = require('bluebird')
@@ -26,8 +26,8 @@ function commitInfo (folder) {
     author: getAuthor(folder),
     sha: getSha(folder),
     timestamp: getTimestamp(folder),
-    remote: getRemoteOrigin(folder)
-  }).then(info => {
+    remote: getRemoteOrigin(folder),
+  }).then((info) => {
     const envVariables = getCommitInfoFromEnvironment()
     debug('git commit: %o', info)
     debug('env commit: %o', envVariables)
@@ -45,5 +45,5 @@ module.exports = {
   getRemoteOrigin,
   getSubject,
   getTimestamp,
-  getBody
+  getBody,
 }

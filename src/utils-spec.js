@@ -40,7 +40,7 @@ describe('utils', () => {
     const env = {
       a: 1,
       b: 2,
-      c: 3
+      c: 3,
     }
 
     it('finds first value', () => {
