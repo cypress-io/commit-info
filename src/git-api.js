@@ -37,7 +37,7 @@ const runGitCommand = (gitCommand, pathToRepo) => {
   debug('running git command: %s', gitCommand)
   debug('in folder %s', pathToRepo)
 
-  return Promise.try(() => execa.shell(gitCommand, { cwd: pathToRepo }))
+  return Promise.try(() => execa(gitCommand, { shell: true, cwd: pathToRepo }))
     .then(prop('stdout'))
     .tap((stdout) => debug('git stdout:', stdout))
     .then(returnNullIfEmpty)
