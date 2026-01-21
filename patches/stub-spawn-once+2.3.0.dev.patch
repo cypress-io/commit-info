@@ -1,0 +1,22 @@
+diff --git a/node_modules/stub-spawn-once/src/index.js b/node_modules/stub-spawn-once/src/index.js
+index e06f07c..da775b4 100644
+--- a/node_modules/stub-spawn-once/src/index.js
++++ b/node_modules/stub-spawn-once/src/index.js
+@@ -72,7 +72,7 @@ const commands = {}
+ 
+ function spawnDispatcher (file, args, options) {
+   debug('spawnDispatcher', file, arguments)
+-  const command = file + ' ' + args.join(' ')
++  const command = file
+   const mock = commands[command]
+   if (mock) {
+     debug('removing old mock')
+@@ -137,7 +137,7 @@ function stubSpawnShellOnce (command, exitCode, stdout, stderr) {
+     exitCode = 0
+   }
+ 
+-  const fullCommand = `/bin/sh -c ${command}`
++  const fullCommand = command
+   commands[fullCommand] = {
+     exitCode,
+     stdout,
