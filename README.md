@@ -19,7 +19,7 @@ npm install --save @cypress/commit-info
 ## Use
 
 ```js
-const {commitInfo} = require('@cypress/commit-info')
+const { commitInfo } = require('@cypress/commit-info')
 // default folder is current working directory
 commitInfo(folder)
   .then(info => {
